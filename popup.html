@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Tester & Generator</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Regex Tester & Generator</h1>
+            <div class="header-buttons">
+                <button id="historyBtn" class="icon-btn" title="History">📜</button>
+                <button id="themeToggle" class="theme-toggle">🌙</button>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="regexInput">Regular Expression:</label>
+                <div class="input-with-copy">
+                    <input type="text" id="regexInput" placeholder="Enter your regex pattern">
+                    <button class="copy-btn" data-target="regexInput">📋</button>
+                </div>
+                <div class="regex-flags">
+                    <label class="flag-checkbox">
+                        <input type="checkbox" id="globalFlag" checked>
+                        <span>g (Global)</span>
+                    </label>
+                    <label class="flag-checkbox">
+                        <input type="checkbox" id="caseInsensitiveFlag">
+                        <span>i (Case-insensitive)</span>
+                    </label>
+                    <label class="flag-checkbox">
+                        <input type="checkbox" id="multilineFlag">
+                        <span>m (Multiline)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="testInput">Test String:</label>
+                <div class="input-with-copy">
+                    <textarea id="testInput" placeholder="Enter text to test against the regex pattern"></textarea>
+                    <button class="copy-btn" data-target="testInput">📋</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <h2>Results</h2>
+            <div id="matchResults" class="match-results">
+                <div class="no-matches">No matches found</div>
+            </div>
+        </div>
+
+        <div class="pattern-library">
+            <h2>Common Patterns</h2>
+            <div class="pattern-grid">
+                <button class="pattern-btn" data-pattern="\d+">Numbers</button>
+                <button class="pattern-btn" data-pattern="[a-zA-Z]+">Letters</button>
+                <button class="pattern-btn" data-pattern="\w+@\w+\.\w+">Email</button>
+                <button class="pattern-btn" data-pattern="https?:\/\/\S+">URL</button>
+                <button class="pattern-btn" data-pattern="\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b">IP Address</button>
+                <button class="pattern-btn" data-pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b">Email (Strict)</button>
+                <button class="pattern-btn" data-pattern="\b\d{3}[-.]?\d{3}[-.]?\d{4}\b">Phone Number</button>
+                <button class="pattern-btn" data-pattern="\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b">Credit Card</button>
+            </div>
+        </div>
+
+        <div class="pattern-generator">
+            <h2>Pattern Generator</h2>
+            <div class="generator-input">
+                <textarea id="exampleInput" placeholder="Enter examples (one per line)"></textarea>
+                <button id="generateBtn" class="primary-btn">Generate Pattern</button>
+            </div>
+        </div>
+
+        <div class="explanation-section">
+            <h2>Pattern Explanation</h2>
+            <div id="patternExplanation" class="explanation">
+                Enter a regex pattern to see its explanation
+            </div>
+        </div>
+
+        <div id="historyPanel" class="history-panel hidden">
+            <div class="history-header">
+                <h2>Recent Patterns</h2>
+                <button id="closeHistory" class="close-btn">×</button>
+            </div>
+            <div id="historyList" class="history-list">
+                <!-- History items will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html> 
