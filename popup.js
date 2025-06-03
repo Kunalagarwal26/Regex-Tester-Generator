@@ -135,27 +135,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const pattern = generatePattern(examples);
         if (pattern) {
             regexInput.value = pattern;
-            updateResults();
+            regexInput.focus();
+            if (!testInput.value.trim()) {
+                patternExplanation.textContent = `Pattern generated: ${pattern}\nEnter a test string to see results.`;
+            } else {
+                updateResults();
+            }
         } else {
             alert('Could not generate a pattern from the given examples');
         }
     });
 
     function generatePattern(examples) {
-        // Simple pattern generation for common cases
-        if (examples.every(ex => /^\d+$/.test(ex))) {
-            return '\\d+';
-        }
-        if (examples.every(ex => /^[a-zA-Z]+$/.test(ex))) {
-            return '[a-zA-Z]+';
-        }
-        if (examples.every(ex => /^\w+@\w+\.\w+$/.test(ex))) {
-            return '\\w+@\\w+\\.\\w+';
-        }
-        if (examples.every(ex => /^https?:\/\/\S+$/.test(ex))) {
-            return 'https?:\\/\\/\\S+';
-        }
-        return null;
+        if (examples.every(ex => /^\d+$/.test(ex))) return '\\d+';
+        if (examples.every(ex => /^[a-zA-Z]+$/.test(ex))) return '[a-zA-Z]+';
+        if (examples.every(ex => /^[a-zA-Z0-9]+$/.test(ex))) return '[a-zA-Z0-9]+';
+        if (examples.every(ex => /^\w+@\w+\.\w+$/.test(ex))) return '\\w+@\\w+\\.\\w+';
+        if (examples.every(ex => /^https?:\/\/\S+$/.test(ex))) return 'https?:\\/\\/\\S+';
+        if (examples.every(ex => /^\d{1,3}(\.\d{1,3}){3}$/.test(ex))) return '\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b';
+        if (examples.every(ex => /^\d{3}[-.]?\d{3}[-.]?\d{4}$/.test(ex))) return '\\b\\d{3}[-.]?\\d{3}[-.]?\\d{4}\\b';
+        // Fallback: match any of the examples literally
+        return examples.map(ex => ex.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
     }
 
     // Real-time Results Update
